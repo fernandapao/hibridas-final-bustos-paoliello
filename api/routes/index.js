@@ -1,3 +1,5 @@
-export {usersRoutes} from "./usersRoutes.js"
-export {novedadesroutes} from "./novedadesroutes.js"
-export {funcionesroutes} from "./funcionesroutes.js"
+import usersRoutes from './usersRoutes.js';
+import novedadesRoutes from './novedadesRoutes.js';
+import funcionesRoutes from './funcionesRoutes.js';
+
+export { usersRoutes, novedadesRoutes, funcionesRoutes };

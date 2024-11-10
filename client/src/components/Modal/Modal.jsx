@@ -2,49 +2,42 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Modal.scss';
 
-const Modal = ({ task, projectId, onClose, onTaskSaved }) => {
+const Modal = ({ item, itemType, onClose, onItemSaved }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [assignedUser, setAssignedUser] = useState('');
-  const [status, setStatus] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  
+  useEffect(() => {
+    if (item) {
+      setName(item.name);
+      setDescription(item.description);
+    }
+  }, [item]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newItem = { name, description };
+
     try {
-      const newTask = {
-        name,
-        description,
-        assignedUser: {
-          userId: "user",
-          username:"username"
-        },
-        startDate,
-        endDate,
-        status,
-        projectId
-      }
-      if(task){
-        await axios.put(`http://localhost:300/task/${task._id}`, newTask)
-      }else {
-        await axios.put('http://localhost:300/task', newTask)
+      if (item) {
+        // Update existing item
+        await axios.put(`http://localhost:3000/novedadesModel/${item._id}`, newItem);
+      } else {
+        // Add new item
+        await axios.post(`http://localhost:3000/novedadesModel`, newItem);
       }
 
-      onTaskSaved();
-      onClose()
-
-    }catch(err){
-      console.log(err)
+      onItemSaved();
+      onClose();
+    } catch (err) {
+      console.log(err);
     }
-  }
-
+  };
 
   return (
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
-        <h2>{task ? 'Edit Task' : 'Add New Task'}</h2>
+        <h2>{item ? `Edit ${itemType.charAt(0).toUpperCase() + itemType.slice(1)}` : `Add New ${itemType.charAt(0).toUpperCase() + itemType.slice(1)}`}</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label>Name</label>
@@ -54,29 +47,7 @@ const Modal = ({ task, projectId, onClose, onTaskSaved }) => {
             <label>Description</label>
             <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} required />
           </div>
-          <div>
-            <label>Assigned User</label>
-            <input type="text" value={assignedUser} onChange={(e) => setAssignedUser(e.target.value)} required /> 
-          </div>
-          <div>
-            <label>Status</label>
-            <select value={status} onChange={(e) => setStatus(e.target.value)} required>
-            <option disabled selected value="">status</option>
-            <option value="to do">to do</option>
-            <option value="doing">doing</option>
-            <option value="blocked">blocked</option>
-            <option value="done">done</option>
-              </select>
-          </div>
-          <div>
-            <label>Start Date</label>
-            <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
-          </div>
-          <div>
-            <label>End Date</label>
-            <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
-          </div>
-          <button type="submit">{task ? 'Update Task' : 'Add Task'}</button>
+          <button type="submit">{item ? `Update ${itemType.charAt(0).toUpperCase() + itemType.slice(1)}` : `Add ${itemType.charAt(0).toUpperCase() + itemType.slice(1)}`}</button>
         </form>
       </div>
     </div>

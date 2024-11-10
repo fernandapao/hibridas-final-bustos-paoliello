@@ -1,4 +1,4 @@
-import Funciones from "../model/funcionesModel.js"
+import Funciones from "../models/funcionesModel.js"
 
 export const createFuncion = async (req, res) => {
     //validacion

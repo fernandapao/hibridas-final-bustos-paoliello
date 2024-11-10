@@ -1,4 +1,4 @@
-import Novedades from "../model/novedadesModel.js";
+import Novedades from "../models/novedadesModel.js";
 
 export const getNovedades = async (req, res) => {
     try {

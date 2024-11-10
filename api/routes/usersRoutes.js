@@ -1,15 +1,8 @@
 import express from "express";
-import {
-    getTodosUsuarios,
-    getTodosUsuariosId,
-    crearUsuario,
-    loginUsuario,
-    actualizarUsuario,
-    eliminarUsuario
-} from "../controllers/usersController.js";
+import {getTodosUsuarios, getTodosUsuariosId, crearUsuario, loginUsuario, actualizarUsuario, eliminarUsuario} from "../controllers/usersController.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-
+import { verificarToken } from '../middlewares/auth.js';
 dotenv.config();
 
 const claveSecreta = process.env.SECRET;

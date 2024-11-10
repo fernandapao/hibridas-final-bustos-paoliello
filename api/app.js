@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { usersRoutes, usersRoutes, funcionesroutes } from './routes/index.js';
+import { usersRoutes, novedadesRoutes, funcionesRoutes } from './routes/index.js';
 import 'dotenv/config';
 import cors from "cors"
 
@@ -34,8 +34,24 @@ app.get('/',(req, res) => {
 });
 
 app.use('/users', usersRoutes);
-app.use('/novedades', novedadesroutes);
-app.use('/funciones', funcionesroutes);
+app.use('/novedades', novedadesRoutes);
+app.use('/funciones', funcionesRoutes);
+
+function verificarRol(rolesAdmitidos) {
+    return function(req, res, next){
+        const rolUsuario =req.headers['x-rol'];
+
+        if(rolesAdmitidos.includes(rolUsuario)){
+            next();
+        } else {
+            res.status(403).json({mensaje: "Acceso denegado"})
+        }
+    }
+}
+
+app.get("/panel", verificarRol(["admin", "super-admin"]), (req, res) =>{
+    res.send("Acceso permitido")
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

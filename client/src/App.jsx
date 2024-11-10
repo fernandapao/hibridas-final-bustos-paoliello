@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom"
 import './App.css'
-import {Home, TaskBoard, TaskView} from "./pages"
+import { Home, Funciones, Novedades } from "./pages";
 
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/taskboard/:id" element={<TaskBoard/>}/>
-        <Route path="/taskview/:id" element={<TaskView/>}/>
+        <Route path="/funciones/:id" element={<Funciones/>}/>
+        <Route path="/novedades/:id" element={<Novedades/>}/>
       </Routes>
     </>
   )

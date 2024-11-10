@@ -11,7 +11,7 @@
 
  router.put('/:id', updateFuncion);
 
- router.put('/:id', deleteFuncion);
+ router.delete('/:id', deleteFuncion);
 
 router.get('/buscar/funcion', buscarByFuncion);
 
