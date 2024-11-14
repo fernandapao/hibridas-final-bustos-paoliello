@@ -1,19 +1,19 @@
-import 'dotenv/config'
-import jwt  from 'jsonwebtoken';
+import 'dotenv/config';
+import jwt from 'jsonwebtoken';
 
-let verificarToken = (req, res, next) => {
-    let token = req.get('token');
-    jwt.verify(token, process.env.SEED,(error, decoded) => {
-        if(error){
-            console.log(error)
+const verificarToken = (req, res, next) => {
+    const token = req.get('token');
+
+    jwt.verify(token, process.env.SEED, (error, decoded) => {
+        if (error) {
+            console.error(error);
             return res.status(401).json({
                 error
-            })
+            });
         }
         req.usuario = decoded.usuario;
-        next()
+        next();
     });
-}
+};
 
-
-export {verificarToken}
+export { verificarToken };

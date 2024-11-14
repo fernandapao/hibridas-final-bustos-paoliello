@@ -10,7 +10,7 @@ export const createFuncion = async (req, res) => {
             const guardarFunciones = await funcion.save();
             res.json(guardarFunciones)
     }catch(err){
-        res.status(400).json({error:err.mesagge})
+        res.status(400).json({error:err.message})
     }
 };
 
@@ -20,7 +20,7 @@ export const getFuncion = async (req, res) => {
         res.json(funcion)
             
     }catch(err){
-        res.status(400).json({error:err.mesagge})
+        res.status(400).json({error:err.message})
     }
 };
 
@@ -32,7 +32,7 @@ export const getFuncionById = async (req, res) => {
             
             
     }catch(err){
-        res.status(400).json({error:err.mesagge})
+        res.status(400).json({error:err.message})
     }
 };
 
@@ -42,17 +42,21 @@ export const updateFuncion = async (req, res) => {
         res.json(actualizarFuncion)
             
     }catch(err){
-        res.status(400).json({error:err.mesagge})
+        res.status(400).json({error:err.message})
     }
 };
 
 export const deleteFuncion = async (req, res) => {
     try {
-        const eliminarFuncion = await Funciones.findByIdAndDelete(req.params.id, req.body)
-        res.json(eliminarFuncion)
+        const eliminarFuncion = await Funciones.findByIdAndDelete(req.params.id)
+        if (eliminarFuncion){
+            res.status(200).json({ message: "Función eliminada correctamente", data: eliminarFuncion });
+        } else {
+            res.status(404).json({ message: "Función no encontrada" });
+        }
             
     }catch(err){
-        res.status(400).json({error:err.mesagge})
+        res.status(500).json({error:err.message})
     }
 };
 

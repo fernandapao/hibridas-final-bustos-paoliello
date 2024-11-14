@@ -4,13 +4,10 @@ import { usersRoutes, novedadesRoutes, funcionesRoutes } from './routes/index.js
 import 'dotenv/config';
 import cors from "cors"
 
-mongoose.connect("mongodb://127.0.0.1:27017/aplihibridas", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-    .then(() => {console.log('Conectado a MongoDB...')
-})
-    .catch(err => console.log('No se pudo conectar con MongoDB..', err));
+
+mongoose.connect('mongodb://127.0.0.1:27017/aplihibridas')
+  .then(() => console.log('Conexión con Mongo exitosa!'))
+  .catch((error) => console.error('Error al conectar con MongoDB:', error));
 
 
 const app = express();

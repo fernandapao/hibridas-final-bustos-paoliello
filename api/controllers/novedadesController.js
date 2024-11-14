@@ -71,13 +71,17 @@ export const updateNovedad = async (req, res) => {
     }
 };
 
+
 export const deleteNovedad = async (req, res) => {
     try {
-        const eliminarNovedad = await Funciones.findByIdAndDelete(req.params.id, req.body)
-        res.json(eliminarNovedad)
-            
-    }catch(err){
-        res.status(400).json({error:err.message})
+        const eliminarNovedad = await Novedades.findByIdAndDelete(req.params.id);
+        if (eliminarNovedad) {
+            res.status(200).json({ message: "Novedad eliminada correctamente", data: eliminarNovedad });
+        } else {
+            res.status(404).json({ message: "Novedad no encontrada" });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
 
