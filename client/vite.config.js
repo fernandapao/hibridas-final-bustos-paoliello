@@ -5,7 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['jwt-decode'] // Asegúrate de que jwt-decode sea optimizado
+    include: ['jwt-decode'] 
   },
 })
+
+
 

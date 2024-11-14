@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 
+
 const verificarToken = (req, res, next) => {
     const token = req.get('token');
 

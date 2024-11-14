@@ -1,6 +1,7 @@
 
 import api from './api';
-import jwt_decode from 'jwt-decode'; 
+import jwt_decode from 'jwt-decode';
+
 
 
 export const login = async (email, contrasenia) => {
@@ -11,6 +12,7 @@ export const login = async (email, contrasenia) => {
   }
   throw new Error('Autenticación fallida');
 };
+
 
 export const register = async (userData) => {
   const response = await api.post('/users', userData);
@@ -24,7 +26,7 @@ export const logout = () => {
 export const getCurrentUser = () => {
   const token = localStorage.getItem('token');
   if (token) {
-    return jwt_decode(token);
+    return jwt_decode(token); 
   }
   return null;
 };

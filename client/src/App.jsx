@@ -1,10 +1,9 @@
-import {Route, Routes} from "react-router-dom"
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import './App.css'
-import { Home, Funciones, Novedades } from "./pages";
-import Dashboard from './pages/Dashboard';
+import { Home, Dashboard, NotFound } from "./pages";
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import NotFound from './pages/NotFound';
 import Navbar from './components/Layout/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 
