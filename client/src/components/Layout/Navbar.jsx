@@ -1,4 +1,4 @@
-// src/components/Layout/Navbar.jsx
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout, getCurrentUser } from '../../services/auth';
@@ -25,6 +25,8 @@ function Navbar() {
           <>
             <li><Link to="/login">Iniciar Sesión</Link></li>
             <li><Link to="/register">Registrar</Link></li>
+            <li><Link to="/funciones">Funciones</Link></li>
+            <li><Link to="/novedades">Novedades</Link></li>
           </>
         )}
       </ul>

@@ -2,19 +2,18 @@ import Joi from "joi";
 
 export const funcionesValidacion = (data) => {
     const schema = Joi.object({
-        funcion: Joi.string().min(5).max(255).required(),
-    descripcion: Joi.string().min(5).max(400).required()
-
+        funcion: Joi.string().min(3).required(),
+        descripcion: Joi.string().min(5).required(),
     });
-
-    return schema.validate(data)
-}
+    return schema.validate(data);
+};
 
 export const novedadesValidacion = (data) => {
     const schema = Joi.object({
+        nombre: Joi.string().min(3).max(50).required(),
         descripcion: Joi.string().min(5).max(255).required(),
         categoria: Joi.string().min(5).max(400).required(),
-        fecha: Joi.date().min(5).max(400).required()
+        fecha: Joi.date().required()
 
     });
 

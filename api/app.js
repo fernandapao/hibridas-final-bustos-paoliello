@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { usersRoutes, novedadesRoutes, funcionesRoutes } from './routes/index.js';
 import 'dotenv/config';
-import cors from "cors"
+import cors from "cors";
+
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/aplihibridas')
@@ -14,15 +15,15 @@ const app = express();
 
 
 //para error de cors
-// const options = {
-//     origin: 'https://ejemplo.com',
-//     methods: ['GET', 'POST'],
-//     AllowedHeathers: ['Content-Type', 'Authorization'],
-//     credentials: true
+const options = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    AllowedHeathers: ['Content-Type', 'Authorization'],
+    credentials: true
     
-// }
+}
 
-// app.use(cors(options));
+app.use(cors(options));
 app.use(cors());
 
 app.use(express.json());
@@ -54,4 +55,5 @@ app.get("/panel", verificarRol(["admin", "super-admin"]), (req, res) =>{
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
 console.log(`Conexión con Mongo exitosa!`);
-})
+});
+

@@ -1,4 +1,5 @@
-import Novedades from "../models/novedadesModel.js";
+import Novedad from "../models/novedadesModel.js";
+import { novedadesValidacion } from "../validaciones/validaciones.js";
 
 export const getNovedades = async (req, res) => {
     try {
@@ -7,7 +8,7 @@ export const getNovedades = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10; 
 
         // Usar el método `paginate` de Mongoose
-        const novedades = await Novedades.paginate({}, { page, limit });
+        const novedades = await Novedad.paginate({}, { page, limit });
 
         res.json({
             totalDocs: novedades.totalDocs,
@@ -28,7 +29,7 @@ export const createNovedad = async (req, res) => {
     if(error) return res.status(400).json({error:error.details[0].message})
         console.log(error)
     try {
-            const novedad = new Novedades({...req.body});
+            const novedad = new Novedad({...req.body});
             const guardarNovedades = await novedad.save();
             res.json(guardarNovedades)
     }catch(err){
@@ -38,7 +39,7 @@ export const createNovedad = async (req, res) => {
 
 export const getNovedad = async (req, res) => {
     try {
-        const novedad = await Novedades.find();
+        const novedad = await Novedad.find();
         res.json(novedad)
             
     }catch(err){
@@ -51,7 +52,7 @@ export const getNovedad = async (req, res) => {
 export const getNovedadById = async (req, res) => {
     try {
         const id = req.params.id.trim();
-        const novedad = await Novedades.findById(req.params.id);
+        const novedad = await Novedad.findById(req.params.id);
         if(!novedad) return res.status(400).json({error: "no disponible"})
         res.json(novedad)
             
@@ -63,7 +64,7 @@ export const getNovedadById = async (req, res) => {
 
 export const updateNovedad = async (req, res) => {
     try {
-        const actualizarNovedad = await Novedades.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        const actualizarNovedad = await Novedad.findByIdAndUpdate(req.params.id, req.body, {new: true})
         res.json(actualizarNovedad)
             
     }catch(err){
@@ -74,7 +75,7 @@ export const updateNovedad = async (req, res) => {
 
 export const deleteNovedad = async (req, res) => {
     try {
-        const eliminarNovedad = await Novedades.findByIdAndDelete(req.params.id);
+        const eliminarNovedad = await Novedad.findByIdAndDelete(req.params.id);
         if (eliminarNovedad) {
             res.status(200).json({ message: "Novedad eliminada correctamente", data: eliminarNovedad });
         } else {
@@ -89,7 +90,7 @@ export const deleteNovedad = async (req, res) => {
 export const buscarByCategoria = async (req, res) => {
     try {
         const categoria = req.query.categoria; 
-        const novedades = await Novedades.find({ categoria: categoria }); 
+        const novedades = await Novedad.find({ categoria: categoria }); 
         res.status(200).json(novedades); 
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -99,7 +100,7 @@ export const buscarByCategoria = async (req, res) => {
 export const buscarByNombre = async (req, res) => {
     try {
             const buscarNombre = req.query.buscarNombre.split(',')
-            const novedades = await Novedades.find({nombre:{$in:buscarNombre}});
+            const novedades = await Novedad.find({nombre:{$in:buscarNombre}});
             res.json(novedades)
     }catch(err){
         res.status(400).json({error:err.message})

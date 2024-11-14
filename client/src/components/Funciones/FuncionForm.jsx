@@ -17,15 +17,28 @@ function FuncionForm() {
     setFormData({...formData, [e.target.name]: e.target.value});
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await api.post('/funciones', formData);
+  //     navigate('/dashboard/funciones');
+  //   } catch (err) {
+  //     setError(err.response?.data?.error || 'Error al crear la función');
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Datos enviados:', formData); // Verifica los datos antes de enviarlos
     try {
       await api.post('/funciones', formData);
       navigate('/dashboard/funciones');
     } catch (err) {
+      console.error('Error al enviar los datos:', err);
       setError(err.response?.data?.error || 'Error al crear la función');
     }
-  };
+};
+
 
   return (
     <div>

@@ -1,16 +1,44 @@
 import Funciones from "../models/funcionesModel.js"
+import { funcionesValidacion } from "../validaciones/validaciones.js";
+
+// export const createFuncion = async (req, res) => {
+//     //validacion
+//     const {error} = funcionesValidacion(req.body);
+//     if(error) return res.status(400).json({error:error.details[0].message})
+//         console.log(error)
+//     try {
+//             const funcion = new Funciones({...req.body});
+//             const guardarFunciones = await funcion.save();
+//             res.json(guardarFunciones)
+//     }catch(err){
+//         res.status(400).json({error:err.message})
+//     }
+// };
+
+
 
 export const createFuncion = async (req, res) => {
-    //validacion
-    const {error} = funcionesValidacion(req.body);
-    if(error) return res.status(400).json({error:error.details[0].message})
-        console.log(error)
+    // Validación de los datos con Joi
+    const { error } = funcionesValidacion(req.body);  // Aquí debes verificar si el formato es correcto
+    if (error) {
+        console.log('Error en validación:', error.details[0].message);  // Esto es solo para depuración
+        return res.status(400).json({ error: error.details[0].message });
+    }
+
     try {
-            const funcion = new Funciones({...req.body});
-            const guardarFunciones = await funcion.save();
-            res.json(guardarFunciones)
-    }catch(err){
-        res.status(400).json({error:err.message})
+        // Crear una nueva función en la base de datos
+        const funcion = new Funciones({
+            funcion: req.body.funcion,
+            descripcion: req.body.descripcion
+        });
+
+        // Guardar en la base de datos
+        const guardarFunciones = await funcion.save();
+        res.status(201).json(guardarFunciones);  // Responde con la función creada
+    } catch (err) {
+        // Manejar el error de la base de datos o cualquier otro
+        console.error('Error al guardar la función:', err.message); // Log para depuración
+        res.status(400).json({ error: err.message });
     }
 };
 

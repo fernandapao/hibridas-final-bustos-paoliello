@@ -1,11 +1,12 @@
 import User from "../models/usersModel.js";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const claveSecreta = process.env.SECRET;
+console.log("Clave secreta:", claveSecreta);
 
 // Obtener todos los usuarios
 const getTodosUsuarios = async (req, res) => {
@@ -57,18 +58,54 @@ const crearUsuario = async (req, res) => {
 };
 
 // Login de usuario
+// const loginUsuario = async (req, res) => {
+
+//     const { email, contrasenia } = req.body;
+
+//     try {
+//         // Buscar usuario por email
+//         const usuario = await User.findOne({ email });
+//         if (!usuario) {
+//             return res.status(404).json({ message: "Usuario no encontrado" });
+//         }
+
+//         // Verificar la contraseña
+//         const validarContrasenia = await bcrypt.compare(contrasenia, usuario.contrasenia);
+//         if (!validarContrasenia) {
+//             return res.status(401).json({ message: "Contraseña incorrecta" });
+//         }
+
+//         // Generar el token JWT
+//         const token = jwt.sign(
+//             { id: usuario._id, email: usuario.email },
+//             claveSecreta,
+//             { expiresIn: '1h' }
+//         );
+
+//         res.status(200).json({ token });
+//     } catch (error) {
+//         res.status(500).json({ message: "Error en el inicio de sesión", error });
+//     }
+// };
+
 const loginUsuario = async (req, res) => {
     const { email, contrasenia } = req.body;
 
     try {
+        console.log("Paso 1: Iniciando login con email:", email); // Paso 1
+
         // Buscar usuario por email
         const usuario = await User.findOne({ email });
+        console.log("Paso 2: Usuario encontrado:", usuario); // Paso 2
+
         if (!usuario) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
 
         // Verificar la contraseña
         const validarContrasenia = await bcrypt.compare(contrasenia, usuario.contrasenia);
+        console.log("Paso 3: Contraseña válida:", validarContrasenia); // Paso 3
+
         if (!validarContrasenia) {
             return res.status(401).json({ message: "Contraseña incorrecta" });
         }
@@ -79,12 +116,15 @@ const loginUsuario = async (req, res) => {
             claveSecreta,
             { expiresIn: '1h' }
         );
+        console.log("Paso 4: Token generado:", token); // Paso 4
 
         res.status(200).json({ token });
     } catch (error) {
+        console.error("Error en loginUsuario:", error); // Muestra el error específico
         res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
 };
+
 
 // Actualizar un usuario
 const actualizarUsuario = async (req, res) => {
