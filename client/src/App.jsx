@@ -8,6 +8,7 @@ import Navbar from './components/Layout/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 
 
+
 function App() {
 
   return (
@@ -18,14 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route 
-          path="/dashboard/*" 
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          } 
-        />
+        <Route path="/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

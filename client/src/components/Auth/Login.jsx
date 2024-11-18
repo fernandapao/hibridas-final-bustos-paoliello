@@ -22,7 +22,7 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
+    <div className="formulario-container">
       <h2>Iniciar Sesión</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>

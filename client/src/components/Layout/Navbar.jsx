@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout, getCurrentUser } from '../../services/auth';
 
+
 function Navbar() {
   const navigate = useNavigate();
   const user = getCurrentUser();
@@ -14,19 +15,18 @@ function Navbar() {
 
   return (
     <nav>
+      <img src="img/aero-asist-02.png" alt="Logo AeroAsist" className="logo" />
       <ul>
         <li><Link to="/">Inicio</Link></li>
         {user ? (
           <>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><button onClick={handleLogout}>Cerrar Sesión</button></li>
+            <li><Link to="/dashboard">Admin</Link></li>
+            <li><Link onClick={handleLogout}>Cerrar Sesión</Link></li>
           </>
         ) : (
           <>
             <li><Link to="/login">Iniciar Sesión</Link></li>
             <li><Link to="/register">Registrar</Link></li>
-            <li><Link to="/funciones">Funciones</Link></li>
-            <li><Link to="/novedades">Novedades</Link></li>
           </>
         )}
       </ul>

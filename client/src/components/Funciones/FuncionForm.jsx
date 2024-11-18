@@ -1,6 +1,6 @@
 // src/components/Funciones/FuncionForm.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams  } from 'react-router-dom';
 import api from '../../services/api';
 
 function FuncionForm() {
@@ -9,7 +9,23 @@ function FuncionForm() {
     descripcion: ''
   });
   const [error, setError] = useState('');
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Si hay un ID, cargar los datos de la función para editar
+    if (id) {
+      const fetchFuncion = async () => {
+        try {
+          const response = await api.get(`/funciones/${id}`);
+          setFormData(response.data); // Precarga los datos en el formulario
+        } catch (err) {
+          setError('Error al cargar la función');
+        }
+      };
+      fetchFuncion();
+    }
+  }, [id]);
 
   const { funcion, descripcion } = formData;
 
@@ -17,54 +33,50 @@ function FuncionForm() {
     setFormData({...formData, [e.target.name]: e.target.value});
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await api.post('/funciones', formData);
-  //     navigate('/dashboard/funciones');
-  //   } catch (err) {
-  //     setError(err.response?.data?.error || 'Error al crear la función');
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos enviados:', formData); // Verifica los datos antes de enviarlos
+    console.log('Datos enviados:', formData);
     try {
-      await api.post('/funciones', formData);
-      navigate('/dashboard/funciones');
+      if (id) {
+        // Si hay un ID, actualizar la función existente
+        await api.put(`/funciones/${id}`, formData);
+      } else {
+        // Si no hay ID, crear una nueva función
+        await api.post('/funciones', formData);
+      }
+      navigate('/dashboard/funciones'); // Redirigir a la lista de funciones
     } catch (err) {
       console.error('Error al enviar los datos:', err);
-      setError(err.response?.data?.error || 'Error al crear la función');
+      setError(err.response?.data?.error || 'Error al guardar la función');
     }
 };
 
 
   return (
-    <div>
-      <h2>Agregar Nueva Función</h2>
+    <div className='formulario-container'>
+     <h2>{id ? 'Editar Función' : 'Agregar Nueva Función'}</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Función:</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             name="funcion"
             value={funcion}
             onChange={handleChange}
-            required 
+            required
           />
         </div>
         <div>
           <label>Descripción:</label>
-          <textarea 
+          <textarea
             name="descripcion"
             value={descripcion}
             onChange={handleChange}
-            required 
+            required
           ></textarea>
         </div>
-        <button type="submit">Guardar</button>
+        <button type="submit">{id ? 'Actualizar' : 'Guardar'}</button>
       </form>
     </div>
   );

@@ -31,7 +31,7 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
+    <div className="formulario-container">
       <h2>Registrar Usuario</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>

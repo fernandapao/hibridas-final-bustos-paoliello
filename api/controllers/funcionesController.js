@@ -1,22 +1,6 @@
 import Funciones from "../models/funcionesModel.js"
 import { funcionesValidacion } from "../validaciones/validaciones.js";
 
-// export const createFuncion = async (req, res) => {
-//     //validacion
-//     const {error} = funcionesValidacion(req.body);
-//     if(error) return res.status(400).json({error:error.details[0].message})
-//         console.log(error)
-//     try {
-//             const funcion = new Funciones({...req.body});
-//             const guardarFunciones = await funcion.save();
-//             res.json(guardarFunciones)
-//     }catch(err){
-//         res.status(400).json({error:err.message})
-//     }
-// };
-
-
-
 export const createFuncion = async (req, res) => {
     // Validación de los datos con Joi
     const { error } = funcionesValidacion(req.body);  // Aquí debes verificar si el formato es correcto

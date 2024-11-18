@@ -1,6 +1,6 @@
 // src/components/Novedades/NovedadForm.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import {  useParams, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
 function NovedadForm() {
@@ -11,7 +11,23 @@ function NovedadForm() {
     fecha: ''
   });
   const [error, setError] = useState('');
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      const fetchNovedad = async () => {
+        try {
+          const response = await api.get(`/novedades/${id}`);
+          setFormData(response.data);
+        } catch (err) {
+          setError('Error al cargar la novedad', err);
+        }
+      };
+      fetchNovedad();
+    }
+  }, [id]);
+
 
   const { nombre, descripcion, categoria, fecha } = formData;
 
@@ -22,16 +38,20 @@ function NovedadForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/novedades', formData);
+      if (id) {
+        await api.put(`/novedades/${id}`, formData);
+      } else {
+        await api.post('/novedades', formData);
+      }
       navigate('/dashboard/novedades');
     } catch (err) {
-      setError(err.response?.data?.error || 'Error al crear la novedad');
+      setError(err.response?.data?.error || 'Error al guardar la novedad');
     }
   };
 
   return (
-    <div>
-      <h2>Agregar Nueva Novedad</h2>
+    <div className='formulario-container'>
+      <h2>{id ? 'Editar Novedad' : 'Agregar Nueva Novedad'}</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
@@ -73,7 +93,7 @@ function NovedadForm() {
             required 
           />
         </div>
-        <button type="submit">Guardar</button>
+        <button type="submit">{id ? 'Actualizar' : 'Guardar'}</button>
       </form>
     </div>
   );
