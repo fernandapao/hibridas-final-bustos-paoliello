@@ -13,7 +13,6 @@ function Home() {
             <div className="col-7">
               <img src="img/aero-asist-01.png" alt="logo de AeroAsist" className="logo mx-auto d-block" />
               <h2 className="frase text-center">¡Tu aventura comienza aquí!</h2>
-              {/* <img src="img/ilustracion-home.png" alt="ilustración de una sala de aeropuerto" /> */}
             </div>
           </div>
         </div>

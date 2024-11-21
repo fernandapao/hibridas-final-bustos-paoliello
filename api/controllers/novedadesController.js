@@ -89,7 +89,7 @@ export const deleteNovedad = async (req, res) => {
 //Buscar por categoria: infraestructura, actualizacion de software, servicio
 export const buscarByCategoria = async (req, res) => {
     try {
-        const categoria = req.query.categoria; 
+        const categoria = req.query.categoria.split(','); 
         const novedades = await Novedad.find({ categoria: categoria }); 
         res.status(200).json(novedades); 
     } catch (error) {
@@ -99,10 +99,12 @@ export const buscarByCategoria = async (req, res) => {
 
 export const buscarByNombre = async (req, res) => {
     try {
-            const buscarNombre = req.query.buscarNombre.split(',')
+        console.log(req.query.name); 
+            const buscarNombre = req.query.name
             const novedades = await Novedad.find({nombre:{$in:buscarNombre}});
             res.json(novedades)
     }catch(err){
+        console.error(err);
         res.status(400).json({error:err.message})
     }
 };

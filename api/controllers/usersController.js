@@ -57,37 +57,6 @@ const crearUsuario = async (req, res) => {
     }
 };
 
-// Login de usuario
-// const loginUsuario = async (req, res) => {
-
-//     const { email, contrasenia } = req.body;
-
-//     try {
-//         // Buscar usuario por email
-//         const usuario = await User.findOne({ email });
-//         if (!usuario) {
-//             return res.status(404).json({ message: "Usuario no encontrado" });
-//         }
-
-//         // Verificar la contraseña
-//         const validarContrasenia = await bcrypt.compare(contrasenia, usuario.contrasenia);
-//         if (!validarContrasenia) {
-//             return res.status(401).json({ message: "Contraseña incorrecta" });
-//         }
-
-//         // Generar el token JWT
-//         const token = jwt.sign(
-//             { id: usuario._id, email: usuario.email },
-//             claveSecreta,
-//             { expiresIn: '1h' }
-//         );
-
-//         res.status(200).json({ token });
-//     } catch (error) {
-//         res.status(500).json({ message: "Error en el inicio de sesión", error });
-//     }
-// };
-
 const loginUsuario = async (req, res) => {
     const { email, contrasenia } = req.body;
 

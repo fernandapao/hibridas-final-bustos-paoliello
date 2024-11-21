@@ -155,7 +155,7 @@ form input {
 form button {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #113c73;
   color: white;
   border: none;
   border-radius: 5px;
@@ -379,4 +379,25 @@ textarea {
 
 .pagination span {
   font-size: 1.1rem;
+}
+
+/*Form de buscar*/
+
+.input-buscar {
+  
+  height: 40px;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.boton-buscar {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.buscador {
+  place-self: center;
+  max-width: 30%;
+  padding: 20px;
+
 }

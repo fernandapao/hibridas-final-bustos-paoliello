@@ -1,11 +1,11 @@
-const Funciones = () => {
-    return (
-      <div>
-        <h1>Funciones</h1>
-        <p>Contenido de las funciones.</p>
-      </div>
-    );
-  };
+//const Funciones = () => {
+    //return (
+     // <div>
+        //<h1>Funciones</h1>
+        //<p>Contenido de las funciones.</p>
+      //</div>
+   // );
+ // };
   
-  export default Funciones;
+  //export default Funciones;
   
