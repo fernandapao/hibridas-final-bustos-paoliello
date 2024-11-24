@@ -15,7 +15,7 @@ function Navbar() {
 
   return (
     <nav>
-      <img src="img/aero-asist-02.png" alt="Logo AeroAsist" className="logo" />
+      <img src="img/aero-asist-02.png" alt="Logo AeroAsist" className="logo-navbar" />
       <ul>
         <li><Link to="/">Inicio</Link></li>
         {user ? (

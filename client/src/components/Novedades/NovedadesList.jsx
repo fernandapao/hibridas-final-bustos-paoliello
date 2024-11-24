@@ -13,32 +13,27 @@ function NovedadesList() {
   const [suggestions, setSuggestions] = useState([]);
   const debouncedSearch = useDebounce(search, 1000);
 
-  console.log(suggestions)
-
   const navigate = useNavigate();
   const limit = 4;
 
-
   useEffect(() => {
     const fetchNovedades = async () => {
-      try {
-        const response = await api.get(`/novedades/paginas?page=${page}&limit=${limit}`);
-        setNovedades(response.data.docs);
-        setTotalPages(response.data.totalPages);
-      } catch (err) {
-        setError('Error al obtener las novedades');
-      }
+        try {
+            const response = await api.get(`/novedades/paginas?page=${page}&limit=${limit}`);
+            setNovedades(response.data.docs);
+            setTotalPages(response.data.totalPages);
+        } catch (err) {
+            setError('Error al obtener las novedades');
+        }
     };
-    fetchNovedades();
-  }, [page]);
 
-  useEffect(() => {
-    if(debouncedSearch) {
-      handleSearch(debouncedSearch)
+    if (debouncedSearch) {
+        handleSearch(debouncedSearch);
     } else {
-      setSuggestions([]);
+        fetchNovedades();
+        setSuggestions([]);
     }
-  }, [debouncedSearch]);
+}, [debouncedSearch, page]);
 
   const handlePrev = () => {
     if(page > 1) setPage(page -1);
@@ -49,11 +44,13 @@ function NovedadesList() {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await api.delete(`/novedades/${id}`);
-      setNovedades(novedades.filter(novedad => novedad._id !== id)); // Actualizar la lista
-    } catch (err) {
-      setError('Error al eliminar la novedad');
+    if (window.confirm('¿Estás seguro de que deseas eliminar esta novedad?')) {
+      try {
+        await api.delete(`/novedades/${id}`);
+        setNovedades(novedades.filter(novedad => novedad._id !== id));
+      } catch (err) {
+        setError('Error al eliminar la novedad');
+      }
     }
   };
 
@@ -66,7 +63,6 @@ function NovedadesList() {
   }
 
   const handleSearch = async (searchName) => {
-    console.log(searchName)
     try{
       const res = await axios.get('http://localhost:3000/novedades/buscar/nombre', {
         params: {

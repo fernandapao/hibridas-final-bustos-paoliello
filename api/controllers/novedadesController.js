@@ -6,8 +6,6 @@ export const getNovedades = async (req, res) => {
        
         const page = parseInt(req.query.page) || 1;  
         const limit = parseInt(req.query.limit) || 10; 
-
-        // Usar el método `paginate` de Mongoose
         const novedades = await Novedad.paginate({}, { page, limit });
 
         res.json({
@@ -97,14 +95,21 @@ export const buscarByCategoria = async (req, res) => {
     }
 };
 
+
 export const buscarByNombre = async (req, res) => {
     try {
         console.log(req.query.name); 
-            const buscarNombre = req.query.name
-            const novedades = await Novedad.find({nombre:{$in:buscarNombre}});
-            res.json(novedades)
-    }catch(err){
+        const buscarNombre = req.query.name;
+        console.log("Buscar nombre:", req.query.name);
+
+
+        const novedades = await Novedad.find({
+            nombre: { $regex: buscarNombre, $options: 'i' } 
+        });
+
+        res.json(novedades);
+    } catch (err) {
         console.error(err);
-        res.status(400).json({error:err.message})
+        res.status(400).json({ error: err.message });
     }
 };

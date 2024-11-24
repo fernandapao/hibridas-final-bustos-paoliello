@@ -10,6 +10,7 @@ h2 {
   font-size: 50px;
 }
 
+
 /* NavBar */
 nav {
   background-color: #FEBB02;
@@ -18,7 +19,7 @@ nav {
   align-items: center;
   padding: 10px 20px;
 }
-nav .logo {
+nav .logo-navbar {
   height: 40px;
 }
 
@@ -64,10 +65,25 @@ nav ul li a {
   margin-bottom: 20px;
 }
 
+.logo-image {
+  max-width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.illustration-image {
+  max-width: 100%;
+}
+
+.mockup-image {
+  max-width: 80%;
+  object-fit: contain;
+}
+
 /* Estilo para el título (frase) */
 .frase {
   font-size: 2rem;
-  color: #333;
+  color: #113c73;
   margin-top: 20px;
 }
 
@@ -281,7 +297,6 @@ textarea {
 .btn-editar, .btn-eliminar {
   padding: 10px 20px;
   border-radius: 8px;
-  font-size: 1rem;
   border: none;
   cursor: pointer;
 }
