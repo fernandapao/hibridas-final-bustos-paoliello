@@ -1,35 +1,4 @@
-<!-- Aplicaciones Híbridas - Parcial Dos
-
-Descripción:
-Este repositorio contiene el trabajo correspondiente al parcial dos de la materia Aplicaciones Híbridas, desarrollado por  Paoliello, Fernanda y Bustos, Cintia. El proyecto se creo para la web AeroAsist y maneja todos los CRUD de las funciones y novedades de la aplicación web.
-
-Tecnologías Utilizadas
-Framework/librería: React
-Backend: Node.js
-Estilos: CSS, Bootstrap
-Otras herramientas: MongoDB
-
-Instalación
-Para clonar y ejecutar este proyecto localmente, sigue los pasos:
-
-Clona este repositorio:
-git clone https://github.com/fernandapao/hibridas-parcial-dos-bustos-paoliello.git
-
-Navega al directorio del proyecto:
-cd hibridas-parcial-dos-bustos-paoliello
-
-Instala las dependencias:
-npm install
-
-Inicia el servidor de desarrollo:
-- En client: npm run dev
-- En api: npm start
-
-Uso:
-Una vez que el servidor esté ejecutándose, accede a la aplicación en http://localhost:3000.
-Autoras:
-- Bustos, Cintia
-- Paoliello, Fernanda -->
+Aplicaciones Hibridas - Parcial 2
 
 Este proyecto es una aplicación que permite gestionar y buscar novedades y funciones. Está desarrollada utilizando React en el frontend y Node.js con Express en el backend. La base de datos utilizada es MongoDB.
 
