@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { usersRoutes, novedadesRoutes, funcionesRoutes } from './routes/index.js';
+import { usersRoutes, novedadesRoutes, funcionesRoutes, chatRoutes, mensajeRoutes } from './routes/index.js';
 import 'dotenv/config';
 import cors from "cors";
 
@@ -35,6 +35,8 @@ app.get('/',(req, res) => {
 app.use('/users', usersRoutes);
 app.use('/novedades', novedadesRoutes);
 app.use('/funciones', funcionesRoutes);
+app.use('/chats', chatRoutes);
+app.use('/mensaje', mensajeRoutes);
 
 function verificarRol(rolesAdmitidos) {
     return function(req, res, next){
